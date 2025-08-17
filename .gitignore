@@ -22,3 +22,4 @@ mtj.tmp/
 # 虚拟机崩溃日志
 hs_err_pid*
 replay_pid*
+/out/

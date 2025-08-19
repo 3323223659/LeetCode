@@ -1,4 +1,4 @@
-package CodeCaprice;
+package CodeCaprice.Array;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,7 +7,7 @@ package CodeCaprice;
  * @Date: 2025/08/17/23:20
  * @Description: 27. 移除元素
  * LeetCode链接: https://leetcode.cn/problems/remove-element/description/
- * 链接：https://www.programmercarl.com/0027.%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0.html#%E7%AE%97%E6%B3%95%E5%85%AC%E5%BC%80%E8%AF%BE
+ * 笔记链接：https://www.programmercarl.com
  */
 
 /**
@@ -40,31 +40,57 @@ public class LeetCode_27 {
 
     static class Solution {
 
-        //暴力解法
+        /**
+         * 暴力解法 - 原地移除指定元素
+         * 时间复杂度：O(n²) - 最坏情况下需要双层循环
+         * 空间复杂度：O(1) - 原地修改数组
+         *
+         * @param nums 输入数组
+         * @param val 要移除的值
+         * @return 新数组的长度
+         */
         public static int removeElement(int[] nums, int val) {
-            // 记录有效数组的长度
+            // 记录有效数组的长度（初始为数组全长）
             int n = nums.length;
+            // 外层循环遍历数组元素
             for (int i = 0; i < n; i++) {
+                // 如果当前元素等于目标值
                 if (nums[i] == val) {
+                    // 内层循环：将后续元素前移一位（覆盖当前元素）
                     for (int j = i + 1; j < n; j++) {
                         nums[j - 1] = nums[j];
                     }
-                    i--;
-                    n--;
+                    i--; // 因元素前移，需再次检查当前位置的新元素
+                    n--; // 每移除一个元素，有效长度减1
                 }
             }
             return n;
         }
 
-        // 双指针(快慢指针)
+        /**
+         * 双指针解法（快慢指针）- 优化版移除元素
+         * 时间复杂度：O(n) - 只需单次遍历
+         * 空间复杂度：O(1) - 原地修改数组
+         *
+         * @param nums 输入数组
+         * @param val 要移除的值
+         * @return 新数组的长度
+         */
         public static int removeElement2(int[] nums, int val) {
+            // 慢指针：记录下一个有效元素的位置
             int slow = 0;
-            for (int fast = 0; fast < nums.length; fast++){
-                if (nums[fast] != val){
+            // 快指针：遍历整个数组
+            for (int fast = 0; fast < nums.length; fast++) {
+                // 当前元素不是要移除的值
+                if (nums[fast] != val) {
+                    // 将有效元素复制到慢指针位置
                     nums[slow] = nums[fast];
-                    slow ++;
+                    // 慢指针前进（扩展有效区域）
+                    slow++;
                 }
+                // 如果是要移除的值，快指针继续前进，慢指针保持不动
             }
+            // 慢指针的最终位置就是新数组的长度
             return slow;
         }
     }

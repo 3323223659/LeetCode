@@ -5,7 +5,7 @@ package CodeCaprice.Linkedlist;
  *
  * @Author: yang
  * @Date: 2025/08/19/20:36
- * @Description: 707. 设计链表
+ * @Description: 707. 设计链表(有尾节点)
  * LeetCode链接: https://leetcode.cn/problems/design-linked-list/description/
  * 笔记链接：https://www.programmercarl.com
  */

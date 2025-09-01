@@ -5,7 +5,7 @@ package CodeCaprice.Linkedlist;
  *
  * @Author: yang
  * @Date: 2025/08/24/0:00
- * @Description: 02.07. 链表相交
+ * @Description: 02.07. 链表相交(不只是值相等)
  * LeetCode链接: https://leetcode.cn/problems/intersection-of-two-linked-lists-lcci/description/
  * 笔记链接：https://www.programmercarl.com
  */
@@ -58,13 +58,83 @@ public class LeetCode_02_07 {
         ListNode nodeB2 = new ListNode(2, nodeB3);
         ListNode nodeB1 = new ListNode(3, nodeB2);
         System.out.println("链表B：" + nodeB1);
-        ListNode node = getIntersectionNode(nodeA1, nodeB1);
+        ListNode node = getIntersectionNode1(nodeA1, nodeB1);
         System.out.println("相交节点" + node);
 
     }
 
-    private static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        return headA;
+    /**
+     * 方法一：长度差同步法
+     * 时间复杂度：O(m+n) 空间复杂度：O(1)
+     *
+     * @param headA 链表A的头节点
+     * @param headB 链表B的头节点
+     * @return 相交节点，若无则返回null
+     */
+    public static ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
+        ListNode curA = headA;
+        ListNode curB = headB;
+        int lenA = 0, lenB = 0;
+        // 计算链表A、B的长度
+        while (curA != null) {
+            lenA++;
+            curA = curA.next;
+        }
+        while (curB != null) {
+            lenB++;
+            curB = curB.next;
+        }
+        // 重置指针
+        curA = headA;
+        curB = headB;
+        // 确保curA指向较长的链表
+        if (lenB > lenA) {
+            // 交换长度 swap(lenA, lenB)
+            int tmpLen = lenA;
+            lenA = lenB;
+            lenB = tmpLen;
+            // 交换指针 swap(curA, curB)
+            ListNode tmpNode = curA;
+            curA = curB;
+            curB = tmpNode;
+        }
+        // 计算长度差
+        int gap = lenA - lenB;
+        // 移动长链表指针到与短链表对齐的位置
+        while (gap-- > 0) {
+            curA = curA.next;
+        }
+        // 同步移动两个指针寻找交点
+        while (curA != null) {
+            if (curA == curB) {
+                return curA;
+            }
+            curA = curA.next;
+            curB = curB.next;
+        }
+        return null; // 无交点
+    }
+
+    /**
+     * 方法二：双指针循环法（浪漫相遇法）
+     * 时间复杂度：O(m+n) 空间复杂度：O(1)
+     *
+     * @param headA 链表A的头节点
+     * @param headB 链表B的头节点
+     * @return 相交节点，若无则返回null
+     */
+    public static ListNode getIntersectionNode2(ListNode headA, ListNode headB) {
+        ListNode p1 = headA, p2 = headB;
+        // 两个指针同时移动，到达末尾后切换到对方链表
+        while (p1 != p2) {
+            // p1 走一步，如果走到 A 链表末尾，转到 B 链表
+            if (p1 == null) p1 = headB;
+            else p1 = p1.next;
+            // p2 走一步，如果走到 B 链表末尾，转到 A 链表
+            if (p2 == null) p2 = headA;
+            else p2 = p2.next;
+        }
+        return p1; // 返回相遇点（可能为null）
     }
 
     /**
@@ -73,14 +143,19 @@ public class LeetCode_02_07 {
     private static class ListNode {
         int val;
         ListNode next;
-        ListNode() {}  // 空构造函数
+
+        ListNode() {
+        }  // 空构造函数
+
         ListNode(int val) {  // 只有值的构造函数
             this.val = val;
         }
+
         ListNode(int val, ListNode next) {  // 包含值和next指针的构造函数
             this.val = val;
             this.next = next;
         }
+
         @Override
         public String toString() {
             return "ListNode{" +

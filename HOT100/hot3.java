@@ -48,13 +48,11 @@ public class hot3 {
             if (nums.length == 0) {
                 return 0;
             }
-
             // 先对数组进行排序
             Arrays.sort(nums);
 
             int results = 1;  // 记录最终结果
             int temp = 1;     // 记录当前连续序列长度
-
             for (int i = 0; i < nums.length - 1; i++) {
                 // 检查连续数字
                 while (i + 1 < nums.length) {
@@ -69,14 +67,12 @@ public class hot3 {
                     }
                     break;  // 序列中断
                 }
-
                 // 更新最长序列长度
                 if (temp > results) {
                     results = temp;
                 }
                 temp = 1;  // 重置当前序列长度
             }
-
             return results;
         }
 
@@ -104,27 +100,22 @@ public class hot3 {
             for (int num : nums) {
                 num_set.add(num);
             }
-
             int longestStreak = 0;  // 记录最长序列长度
-
             // 遍历HashSet中的每个数字
             for (int num : num_set) {
                 // 只从序列的起始点开始查找（即前一个数字不存在，如果有前一个数字代表不是第一个直接跳过）
                 if (!num_set.contains(num - 1)) {
                     int currentNum = num;
                     int currentStreak = 1;  // 当前序列长度
-
                     // 向后查找连续数字
                     while (num_set.contains(currentNum + 1)) {
                         currentNum += 1;
                         currentStreak += 1;
                     }
-
                     // 更新最长序列长度
                     longestStreak = Math.max(longestStreak, currentStreak);
                 }
             }
-
             return longestStreak;
         }
 

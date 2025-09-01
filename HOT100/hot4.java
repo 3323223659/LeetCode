@@ -45,19 +45,16 @@ public class hot4 {
             List<Integer> list = new ArrayList<>(); // 存储所有0的位置
             int length = nums.length;
             int slow = 0; // 记录已处理的0的个数
-
             // 第一次遍历：记录所有0的位置
             for (int i = 0; i < length; i++) {
                 if (nums[i] == 0){
                     list.add(i);
                 }
             }
-
             // 如果没有0直接返回
             if (list.isEmpty()) {
                 return;
             }
-
             // 处理每个0的位置
             while (slow < list.size()) {
                 int currentZeroPos = list.get(slow);
@@ -71,7 +68,6 @@ public class hot4 {
                 }
                 slow++;
             }
-
             // 在数组末尾补0
             for (int i = 0; i < slow; i++) {
                 nums[length - 1 - i] = 0;
@@ -100,7 +96,6 @@ public class hot4 {
             int indexNow = 0; // 记录非零元素应放置的位置
             int indexNum = 0; // 遍历指针
             int m = nums.length;
-
             // 第一次遍历：移动所有非零元素到前面
             while(indexNum < m){
                 if(nums[indexNum] != 0) {
@@ -108,7 +103,6 @@ public class hot4 {
                 }
                 ++indexNum;
             }
-
             // 第二次遍历：在剩余位置补0
             for(int i = indexNow; i < m; i++){
                 nums[i] = 0;

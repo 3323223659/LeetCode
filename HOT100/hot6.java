@@ -113,10 +113,8 @@ public class hot6 {
          *    - 更简洁的指针移动逻辑
          *    - 找到解后立即跳过所有重复元素
          *    - 使用Arrays.asList简化列表创建
-         *
          * 时间复杂度: O(n²)
          * 空间复杂度: O(1)
-         *
          * 关键点：
          * - 去重处理更加直观
          * - 代码结构更简洁
@@ -128,11 +126,9 @@ public class hot6 {
         public static List<List<Integer>> threeSum2(int[] nums) {
             Arrays.sort(nums); // 先排序
             List<List<Integer>> res = new ArrayList<>();
-
             for (int i = 0; i < nums.length; i++) {
                 // 跳过重复元素
                 if (i > 0 && nums[i] == nums[i - 1]) continue;
-
                 // 双指针，目标是找到 nums[l] + nums[r] = -nums[i]
                 int l = i + 1, r = nums.length - 1;
                 int target = -nums[i];
@@ -153,7 +149,6 @@ public class hot6 {
                     }
                 }
             }
-
             return res;
         }
     }

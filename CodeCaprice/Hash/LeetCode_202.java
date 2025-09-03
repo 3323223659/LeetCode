@@ -34,9 +34,8 @@ import java.util.Set;
  */
 public class LeetCode_202 {
     public static void main(String[] args) {
-        LeetCode_202 code = new LeetCode_202();
         int n = 19;
-        System.out.println(code.isHappy(n));
+        System.out.println(isHappy(n));
     }
 
     /**
@@ -66,7 +65,7 @@ public class LeetCode_202 {
      * @param n 待判断的正整数
      * @return 如果是快乐数返回true，否则返回false
      */
-    public boolean isHappy(int n) {
+    public static boolean isHappy(int n) {
         // 使用HashSet记录已经出现过的数字，用于检测循环
         Set<Integer> seenNumbers = new HashSet<>();
         // 主循环：当数字不为1且未出现重复时继续计算
